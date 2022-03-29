@@ -15,7 +15,7 @@ class MainViewModel (private val liveData:MutableLiveData<AppState> = MutableLiv
         Thread {
             liveData.postValue(AppState.Loading)
             sleep(2000L)
-            if ((0..3).random()>=2)
+            if ((0..3).random()==3)
             liveData.postValue(AppState.Success(Any()))
             else liveData.postValue(AppState.Error(Throwable()))
         }.start()
