@@ -3,4 +3,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="message_text_size">MainFragment</string>
+    <string name="temperature">TEMPERATURE:</string>
+    <string name="temperature_feels_like">TEMPERATURE FEELS LIKE</string>
+    <string name="temp">temp ℃</string>
+    <string name="lat_lon">lat/lon</string>
+    <string name="city_name">Tyumen</string>
 </resources>

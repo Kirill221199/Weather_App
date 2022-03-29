@@ -32,7 +32,7 @@ class MainFragment : Fragment() {
         when (data) {
             is AppState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
-                binding.message.text = "Error"
+                //binding.message.text = "Error"
                 val snackBar:Snackbar = Snackbar.make(binding.mainView,"Error",Snackbar.LENGTH_LONG)
                 snackBar.setAction("Repeat request") {
                     snackBar.dismiss()
@@ -47,7 +47,7 @@ class MainFragment : Fragment() {
             }
             is AppState.Success -> {
                 binding.loadingLayout.visibility = View.GONE
-                binding.message.text = "Success"
+                //binding.message.text = "Success"
                 Snackbar.make(binding.mainView,"Success",Snackbar.LENGTH_LONG).show()
             }
         }
