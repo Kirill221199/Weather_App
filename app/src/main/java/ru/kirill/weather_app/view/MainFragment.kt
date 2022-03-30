@@ -1,13 +1,13 @@
 package ru.kirill.weather_app.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import ru.kirill.weather_app.R
 import ru.kirill.weather_app.databinding.FragmentMainBinding
 import ru.kirill.weather_app.viewmodel.AppState
 import ru.kirill.weather_app.viewmodel.MainViewModel
@@ -17,8 +17,32 @@ class MainFragment : Fragment() {
     lateinit var binding: FragmentMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_settings -> {
+                Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.action_source_server -> {
+                Toast.makeText(context, "Server", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.action_source_local -> {
+                Toast.makeText(context, "Local", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

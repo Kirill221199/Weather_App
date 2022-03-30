@@ -10,40 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/space"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <RadioButton
-                android:id="@+id/btn_server"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="server" />
-
-            <RadioButton
-                android:id="@+id/btn_local"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="local" />
-
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/space"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_coordinate"
-            android:background="@color/purple_500"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radio_group"
-            app:layout_constraintTop_toTopOf="@+id/radio_group" />
-
         <TextView
             android:id="@+id/cityName"
             android:layout_width="wrap_content"
@@ -54,7 +20,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/space" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/cityCoordinates"

@@ -8,4 +8,7 @@
     <string name="temp">temp ℃</string>
     <string name="lat_lon">lat/lon</string>
     <string name="city_name">Tyumen</string>
+    <string name="server">Server</string>
+    <string name="local">Local</string>
+    <string name="settings">Settings</string>
 </resources>
