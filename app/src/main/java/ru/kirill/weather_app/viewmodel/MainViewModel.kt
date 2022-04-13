@@ -24,7 +24,7 @@ class MainViewModel(
         Thread {
             liveData.postValue(AppState.Loading)
             Thread.sleep(2000L)
-            if ((0..3).random() >= 2) {
+            if ((0..3).random() >= 1) {
                 liveData.postValue(
                     AppState.Success(
                         if (isRussian)
