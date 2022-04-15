@@ -12,6 +12,14 @@ android {
 
     compileSdk 32
 
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream ())
+        def apiKey = properties.getProperty("yandex_weather_api_key", "")
+        it.buildConfigField "String", "WEATHER_API_KEY", apiKey
+    }
+
+
     defaultConfig {
         applicationId "ru.kirill.weather_app"
         minSdk 24
@@ -39,6 +47,7 @@ android {
 
 dependencies {
 
+    implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
