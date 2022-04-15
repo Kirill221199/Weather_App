@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/securiry_settings"
         android:theme="@style/Theme.Weather_App">
         <activity
             android:name=".view.MainActivity"
