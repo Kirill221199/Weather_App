@@ -38,8 +38,9 @@ class DetailsFragment : Fragment(), OnServerResponse {
             loadingLayout.visibility = View.GONE
             cityName.text = currentCityName
             with(weather) {
-                temperatureValue.text = weather.factDTO.temp.toString()
-                feelsLikeValue.text = weather.factDTO.feelsLike.toString()
+                temperatureValue.text = weather.factDTO.temp.toString() + "℃"
+                feelsLikeValue.text = weather.factDTO.feelsLike.toString()+ "℃"
+                pressureValue.text = weather.factDTO.pressureMm.toString() + " mm Hg"
                 cityCoordinates.text = String.format("%.3f", weather.infoDTO.lat)+" , "+String.format("%.3f", weather.infoDTO.lon)
 
             }
