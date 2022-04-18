@@ -4,7 +4,12 @@ import android.os.Handler
 import android.os.Looper
 import com.google.gson.Gson
 import ru.kirill.weather_app.BuildConfig
+import ru.kirill.weather_app.Other.YANDEX_API_KEY
+import ru.kirill.weather_app.Other.YANDEX_DOMAIN_HARD_MODE
+import ru.kirill.weather_app.Other.YANDEX_PATH
+import ru.kirill.weather_app.Repository.DTO.WeatherDTO
 import java.io.BufferedReader
+import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
@@ -12,13 +17,13 @@ import java.net.URL
 class WeatherLoader(val onServerResponseListener: OnServerResponse) {
 
     fun loadWeather(lat: Double, lon: Double) {
-        val urlText = "http://212.86.114.27/v2/informers?lat=$lat&lon=$lon"
+        val urlText = "$YANDEX_DOMAIN_HARD_MODE$YANDEX_PATH+lat=$lat&lon=$lon"
         val uri = URL(urlText)
         val urlConnection: HttpURLConnection =
             (uri.openConnection() as HttpURLConnection).apply {
                 connectTimeout = 1000
                 readTimeout = 1000
-                addRequestProperty("X-Yandex-API-Key", BuildConfig.WEATHER_API_KEY)
+                addRequestProperty("$YANDEX_API_KEY", BuildConfig.WEATHER_API_KEY)
             }
         try {
             Thread {
@@ -28,18 +33,22 @@ class WeatherLoader(val onServerResponseListener: OnServerResponse) {
                 val buffer = BufferedReader(InputStreamReader(urlConnection.inputStream))
                 val weatherDTO: WeatherDTO = Gson().fromJson(buffer, WeatherDTO::class.java)
 
-                if (responseCode >= 500) {
+                val codeErrorServer = 500
+                val codeErrorClient = 400..499
+                val codeSuccess = 300
+
+                if (responseCode >= codeErrorServer) {
                     // server
-                } else if (responseCode >= 400) {
+                } else if (responseCode in codeErrorClient) {
                     // client
-                } else if (responseCode < 300) {
+                } else if (responseCode < codeSuccess) {
                     Handler(Looper.getMainLooper()).post() {
                         onServerResponseListener.onResponse(weatherDTO)
                     }
                 }
             }.start()
         }
-        catch (e:Exception){
+        catch (e: FileNotFoundException){
             // show e
         }
         finally {

@@ -1,8 +1,11 @@
-package ru.kirill.weather_app.Repository
+package ru.kirill.weather_app.Repository.DTO
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ForecastDTO(
     @SerializedName("date")
     val date: String,
@@ -20,4 +23,4 @@ data class ForecastDTO(
     val sunset: String,
     @SerializedName("week")
     val week: Int
-)
+):Parcelable
