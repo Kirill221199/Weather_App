@@ -25,8 +25,8 @@ class WeatherLoader(val onServerResponseListener: OnServerResponse) {
                 readTimeout = 1000
                 addRequestProperty("$YANDEX_API_KEY", BuildConfig.WEATHER_API_KEY)
             }
-        try {
-            Thread {
+        Thread {
+            try {
                 val headers = urlConnection.headerFields
                 val responseCode = urlConnection.responseCode
                 val responseMessage = urlConnection.responseMessage
@@ -46,13 +46,11 @@ class WeatherLoader(val onServerResponseListener: OnServerResponse) {
                         onServerResponseListener.onResponse(weatherDTO)
                     }
                 }
-            }.start()
-        }
-        catch (e: FileNotFoundException){
-            // show e
-        }
-        finally {
-            urlConnection.disconnect()
-        }
+            } catch (e: FileNotFoundException) {
+                // show e
+            } finally {
+                urlConnection.disconnect()
+            }
+        }.start()
     }
 }

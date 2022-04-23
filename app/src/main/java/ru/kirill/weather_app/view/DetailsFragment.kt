@@ -11,12 +11,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_main.*
 import ru.kirill.weather_app.Other.KEY_BUNDLE_LAT
 import ru.kirill.weather_app.Other.KEY_BUNDLE_LON
 import ru.kirill.weather_app.Other.KEY_BUNDLE_SERVICE_BROADCAST_WEATHER
 import ru.kirill.weather_app.Other.KEY_WAVE
-import ru.kirill.weather_app.Repository.*
 import ru.kirill.weather_app.Repository.DTO.WeatherDTO
+import ru.kirill.weather_app.Repository.DetailsService
+import ru.kirill.weather_app.Repository.OnServerResponse
+import ru.kirill.weather_app.Repository.Weather
 import ru.kirill.weather_app.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment(), OnServerResponse {
@@ -35,7 +38,7 @@ class DetailsFragment : Fragment(), OnServerResponse {
     private val receiver = object: BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
             intent?.let{ intent ->
-                intent.getParcelableExtra<WeatherDTO> (KEY_BUNDLE_SERVICE_BROADCAST_WEATHER)?. let{
+                intent.getParcelableExtra<WeatherDTO> (KEY_BUNDLE_SERVICE_BROADCAST_WEATHER). let{
                     onResponse(it)
                 }
             }
@@ -46,7 +49,6 @@ class DetailsFragment : Fragment(), OnServerResponse {
         super.onViewCreated(view, savedInstanceState)
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(receiver,
             IntentFilter(KEY_WAVE)
-
         )
         arguments?.getParcelable<Weather>(BUNDLE_EXTRA)?.let {
             currentCityName = it.city.name
@@ -58,18 +60,37 @@ class DetailsFragment : Fragment(), OnServerResponse {
     }
 
 
-    private fun renderData(weather: WeatherDTO) {
-        with(binding) {
-            loadingLayout.visibility = View.GONE
-            cityName.text = currentCityName
-            with(weather) {
-                temperatureValue.text = weather.factDTO.temp.toString() + "℃"
-                feelsLikeValue.text = weather.factDTO.feelsLike.toString()+ "℃"
-                pressureValue.text = weather.factDTO.pressureMm.toString() + " mm Hg"
-                cityCoordinates.text = String.format("%.3f", weather.infoDTO.lat)+" , "+String.format("%.3f", weather.infoDTO.lon)
-
+    private fun renderData(weather: WeatherDTO?) {
+        if (weather == null) {
+            with(binding) {
+                cityName.text = "OOPS..."
+                view?.showActionSnackBar("ERROR","REPEAT?",{
+                    arguments?.getParcelable<Weather>(BUNDLE_EXTRA)?.let {
+                        currentCityName = it.city.name
+                        requireActivity().startService(Intent(requireContext(), DetailsService::class.java).apply {
+                            putExtra(KEY_BUNDLE_LAT, it.city.lat)
+                            putExtra(KEY_BUNDLE_LON, it.city.lon)
+                        })
+                    }
+                })
             }
-            view?.showSnackBar("Success")
+        }
+        else{
+            with(binding) {
+                loadingLayout.visibility = View.GONE
+                cityName.text = currentCityName
+                with(weather) {
+                    temperatureValue.text = weather.factDTO.temp.toString() + "℃"
+                    feelsLikeValue.text = weather.factDTO.feelsLike.toString() + "℃"
+                    pressureValue.text = weather.factDTO.pressureMm.toString() + " mm Hg"
+                    cityCoordinates.text =
+                        String.format("%.3f", weather.infoDTO.lat) + " , " + String.format(
+                            "%.3f",
+                            weather.infoDTO.lon
+                        )
+                }
+                view?.showSnackBar("Success")
+            }
         }
     }
 
@@ -87,8 +108,13 @@ class DetailsFragment : Fragment(), OnServerResponse {
         Snackbar.make(this, text, length).show()
     }
 
-    override fun onResponse(weatherDTO: WeatherDTO) {
-        renderData(weatherDTO)
+    fun View.showActionSnackBar(
+        text: String,
+        actionText: String,
+        action: (View) -> Unit,
+        length: Int = Snackbar.LENGTH_INDEFINITE
+    ) {
+        Snackbar.make(this, text, length).setAction(actionText, action).show()
     }
 
 
@@ -97,4 +123,9 @@ class DetailsFragment : Fragment(), OnServerResponse {
         _binding = null
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(receiver)
     }
+
+    override fun onResponse(weatherDTO: WeatherDTO?) {
+        renderData(weatherDTO)
+    }
+
 }
