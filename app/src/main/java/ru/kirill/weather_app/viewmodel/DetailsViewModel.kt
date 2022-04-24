@@ -2,14 +2,11 @@ package ru.kirill.weather_app.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.kirill.weather_app.Repository.City
-import ru.kirill.weather_app.Repository.DetailsRepository
-import ru.kirill.weather_app.Repository.DetailsRepositoryOkhttpImpl
-import ru.kirill.weather_app.Repository.Weather
+import ru.kirill.weather_app.Repository.*
 
 class DetailsViewModel(
     private val liveData: MutableLiveData<DetailsState> = MutableLiveData(),
-    private var repository: DetailsRepository = DetailsRepositoryOkhttpImpl()
+    private var repository: DetailsRepository = DetailsRepositoryRetrofit2Impl()
 ) : ViewModel() {
 
     fun getLiveData() = liveData
