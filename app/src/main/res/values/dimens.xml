@@ -8,4 +8,6 @@
     <dimen name="max_image_size">55dp</dimen>
     <dimen name="recycler_item_padding">10dp</dimen>
     <dimen name="recycler_item_text_size">25sp</dimen>
+    <dimen name="headerImage_size">50dp</dimen>
+    <dimen name="icon_size">200dp</dimen>
 </resources>
