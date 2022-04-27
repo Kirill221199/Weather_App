@@ -13,11 +13,13 @@ import ru.kirill.weather_app.Repository.DTO.WeatherDTO
 import ru.kirill.weather_app.viewmodel.DetailsViewModel
 
 class DetailsRepositoryRetrofit2Impl : DetailsRepository {
+
+    val weatherApi = Retrofit.Builder().apply {
+        baseUrl(YANDEX_DOMAIN_HARD_MODE)
+        addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+    }.build().create(WeatherAPI::class.java)
+
     override fun getWeatherDetails(city: City, callback: DetailsViewModel.Callback) {
-        val weatherApi = Retrofit.Builder().apply {
-            baseUrl(YANDEX_DOMAIN_HARD_MODE)
-            addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-        }.build().create(WeatherAPI::class.java)
         weatherApi.getWeather(BuildConfig.WEATHER_API_KEY, city.lat, city.lon).enqueue(object :
             Callback<WeatherDTO> {
             override fun onResponse(call: Call<WeatherDTO>, response: Response<WeatherDTO>) {

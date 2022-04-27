@@ -7,6 +7,8 @@ const val YANDEX_DOMAIN_HARD_MODE = "http://212.86.114.27/"
 const val YANDEX_PATH = "v2/informers?"
 const val YANDEX_API_KEY = "X-Yandex-API-Key"
 const val KEY_BUNDLE_SERVICE_BROADCAST_WEATHER = "weather"
+const val SP_FLAG = "sp_flag"
+const val KEY_SP_FLAG = "key_sp_flag"
 
 class Keys {
 }

@@ -1,14 +1,14 @@
 package ru.kirill.weather_app.Repository
 
-import android.content.Intent
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import ru.kirill.weather_app.BuildConfig
-import ru.kirill.weather_app.Other.*
+import ru.kirill.weather_app.Other.YANDEX_API_KEY
+import ru.kirill.weather_app.Other.YANDEX_DOMAIN_HARD_MODE
+import ru.kirill.weather_app.Other.YANDEX_PATH
+import ru.kirill.weather_app.Other.convertDtoToModel
 import ru.kirill.weather_app.Repository.DTO.WeatherDTO
-import ru.kirill.weather_app.viewmodel.DetailsState
 import ru.kirill.weather_app.viewmodel.DetailsViewModel
 
 class DetailsRepositoryOkhttpImpl : DetailsRepository {

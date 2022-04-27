@@ -1,9 +1,12 @@
 package ru.kirill.weather_app.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.kirill.weather_app.Other.KEY_SP_FLAG
+import ru.kirill.weather_app.Other.SP_FLAG
 import ru.kirill.weather_app.R
-import ru.kirill.weather_app.Repository.DetailsService
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

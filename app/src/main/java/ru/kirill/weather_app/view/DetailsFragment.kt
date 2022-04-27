@@ -81,6 +81,7 @@ class DetailsFragment : Fragment() {
                     pressureValue.text = weather.pressureMM.toString() + " mm Hg"
                     headerImage.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
                     icon.loadSvg("https://yastatic.net/weather/i/icons/blueye/color/svg/${weather.icon}.svg")
+                    Log.d("@@@", weather.icon)
                     cityCoordinates.text =
                         String.format("%.3f", weather.city.lat) + " , " + String.format(
                             "%.3f",
