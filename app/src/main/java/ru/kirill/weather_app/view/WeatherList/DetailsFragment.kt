@@ -1,4 +1,4 @@
-package ru.kirill.weather_app.view
+package ru.kirill.weather_app.view.WeatherList
 
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +14,6 @@ import coil.decode.SvgDecoder
 import coil.load
 import coil.request.ImageRequest
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_details.*
-import ru.kirill.weather_app.Repository.OnServerResponse
 import ru.kirill.weather_app.Repository.Weather
 import ru.kirill.weather_app.databinding.FragmentDetailsBinding
 import ru.kirill.weather_app.viewmodel.DetailsState

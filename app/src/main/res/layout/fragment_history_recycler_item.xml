@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="37dp">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/recycler_item_padding"
+        android:textSize="@dimen/recycler_item_text_size"
+        app:layout_constraintEnd_toStartOf="@+id/icon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Тюмень" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:padding="@dimen/recycler_item_padding"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cityName"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="icon" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/temperatureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/recycler_item_padding_history"
+        android:textSize="@dimen/text_size_history_param"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/temperature"
+        android:text="@string/temp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/feelsLikeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/recycler_item_padding_history"
+        android:textSize="@dimen/text_size_history_param"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperature"
+        android:text="@string/temperature_feels_like" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/pressureMmText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/recycler_item_padding_history"
+        android:textSize="@dimen/text_size_history_param"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feelsLikeText"
+        android:text="@string/atmospheric_pressure" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/recycler_item_padding_history"
+        android:textSize="@dimen/text_size_history_param"
+        app:layout_constraintStart_toEndOf="@+id/temperatureText"
+        app:layout_constraintTop_toBottomOf="@+id/cityName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/feelsLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/recycler_item_padding_history"
+        android:textSize="@dimen/text_size_history_param"
+        app:layout_constraintStart_toEndOf="@+id/feelsLikeText"
+        app:layout_constraintTop_toTopOf="@+id/feelsLikeText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/pressureMm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/recycler_item_padding_history"
+        android:textSize="@dimen/text_size_history_param"
+        app:layout_constraintStart_toEndOf="@+id/pressureMmText"
+        app:layout_constraintTop_toBottomOf="@+id/feelsLikeText" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/pressureMmText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

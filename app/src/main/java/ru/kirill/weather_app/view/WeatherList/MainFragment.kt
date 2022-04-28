@@ -1,5 +1,7 @@
-package ru.kirill.weather_app.view
+package ru.kirill.weather_app.view.WeatherList
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_main.*
+import ru.kirill.weather_app.Other.KEY_SP_FLAG
+import ru.kirill.weather_app.Other.SP_FLAG
 import ru.kirill.weather_app.R
 import ru.kirill.weather_app.Repository.Weather
 import ru.kirill.weather_app.databinding.FragmentMainBinding
@@ -20,6 +24,7 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+    private var isDataSetRus: Boolean = true
 
     override fun onDestroy() {
         _binding = null
@@ -31,7 +36,6 @@ class MainFragment : Fragment() {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    private var isDataSetRus: Boolean = true
     private val adapter = MainFragmentAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(weather: Weather) {
             activity?.supportFragmentManager?.apply {
@@ -57,10 +61,29 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.mainFragmentRecyclerView.adapter = adapter
         binding.mainFragmentFAB.setOnClickListener { changeWeatherDataSet() }
+        if (getWeatherDataSet()){
+            binding.mainFragmentFAB.setImageResource(R.drawable.ic_russia)
+        }
+        else{
+            binding.mainFragmentFAB.setImageResource(R.drawable.ic_earth)
+        }
         viewModel.getData().observe(viewLifecycleOwner, Observer {
             renderData(it)
         })
-        viewModel.getWeatherFromLocalSourceRus()
+        viewModel.getDataFromLocalSource(getWeatherDataSet())
+
+    }
+
+    private fun setWeatherDataSet(weatherData:Boolean){
+        val sp = requireContext().getSharedPreferences(SP_FLAG, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor? = sp.edit()
+        editor?.putBoolean(KEY_SP_FLAG, isDataSetRus)
+        editor!!.apply()
+    }
+
+    private fun getWeatherDataSet(): Boolean {
+        val sp = requireContext().getSharedPreferences(SP_FLAG, Context.MODE_PRIVATE)
+        return sp.getBoolean(KEY_SP_FLAG, isDataSetRus)
     }
 
     private fun changeWeatherDataSet() {
@@ -70,7 +93,8 @@ class MainFragment : Fragment() {
         } else {
             viewModel.getWeatherFromLocalSourceRus()
             binding.mainFragmentFAB.setImageResource(R.drawable.ic_russia)
-        }.also { isDataSetRus = !isDataSetRus }
+        }.also { isDataSetRus = !isDataSetRus
+            setWeatherDataSet(isDataSetRus)}
     }
 
     private fun renderData(appState: AppState) {
@@ -87,7 +111,7 @@ class MainFragment : Fragment() {
                 fragment_main.showSnackBar(
                     getString(R.string.error),
                     getString(R.string.reload),
-                    { viewModel.getWeatherFromLocalSourceRus() })
+                    { viewModel.getDataFromLocalSource(getWeatherDataSet()) })
             }
         }
     }

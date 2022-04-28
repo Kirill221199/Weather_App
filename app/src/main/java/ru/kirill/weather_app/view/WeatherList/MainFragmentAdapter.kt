@@ -1,4 +1,4 @@
-package ru.kirill.weather_app.view
+package ru.kirill.weather_app.view.WeatherList
 
 import android.view.LayoutInflater
 import android.view.View
