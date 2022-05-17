@@ -14,4 +14,6 @@
     <string name="error">error</string>
     <string name="reload">reload</string>
     <string name="atmospheric_pressure">ATMOSPHERIC PRESSURE:</string>
+    <string name="enter_the_address">Enter the address</string>
+    <string name="search">Search</string>
 </resources>

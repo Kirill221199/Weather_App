@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import ru.kirill.weather_app.MyApp
 import ru.kirill.weather_app.R
+import ru.kirill.weather_app.view.GoogleMaps.MapsFragment
 import ru.kirill.weather_app.view.HistoryList.HistoryFragment
 import ru.kirill.weather_app.view.WeatherList.MainFragment
 
@@ -37,6 +38,10 @@ class MainActivity : AppCompatActivity() {
             R.id.action_source_server -> {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.container, MainFragment.newInstance()).addToBackStack("").commit()
+            }
+            R.id.action_map -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.container, MapsFragment()).addToBackStack("").commit()
             }
         }
         return super.onOptionsItemSelected(item)
