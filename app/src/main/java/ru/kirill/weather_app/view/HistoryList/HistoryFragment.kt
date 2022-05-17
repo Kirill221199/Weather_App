@@ -43,7 +43,9 @@ class HistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.historyFragmentRecyclerView.also {
             it.adapter = adapter
-            it.layoutManager = LinearLayoutManager(requireContext())
+            val linearManager = LinearLayoutManager(requireContext())
+            linearManager.reverseLayout = true
+            it.layoutManager = linearManager
         }
         val observer = { data: AppState -> renderData(data) }
         viewModel.getData().observe(viewLifecycleOwner, observer)

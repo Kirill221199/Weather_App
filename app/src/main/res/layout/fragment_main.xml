@@ -28,6 +28,18 @@
         app:maxImageSize="@dimen/max_image_size"
         app:tint="@null" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mainFragmentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_float_action_button"
+        android:src="@drawable/ic_baseline_location_on_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/mainFragmentFAB"
+        android:backgroundTint="@color/teal_700"
+        app:maxImageSize="@dimen/max_image_size"
+        app:tint="@null" />
+
     <FrameLayout
         android:id="@+id/mainFragmentLoadingLayout"
         android:layout_width="match_parent"

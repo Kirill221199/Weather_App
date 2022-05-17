@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.kirill.weather_app.R
 import ru.kirill.weather_app.Repository.Weather
 
-class MainFragmentAdapter(private var onItemViewClickListener: MainFragment.OnItemViewClickListener?) :
+class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickListener?) :
     RecyclerView.Adapter<MainFragmentAdapter.MyViewHolder>() {
 
     private var weatherData: List<Weather> = listOf()
