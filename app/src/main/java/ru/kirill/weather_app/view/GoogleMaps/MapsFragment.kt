@@ -2,17 +2,22 @@ package ru.kirill.weather_app.view.GoogleMaps
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,10 +26,14 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import ru.kirill.weather_app.Other.REQUEST_CODE_LOCATION
 import ru.kirill.weather_app.R
+import ru.kirill.weather_app.Repository.City
+import ru.kirill.weather_app.Repository.Weather
 import ru.kirill.weather_app.databinding.FragmentMapsCastomBinding
+import ru.kirill.weather_app.view.WeatherList.DetailsFragment
+import ru.kirill.weather_app.view.WeatherList.OnItemViewClickListener
 import java.util.*
 
-class MapsFragment : Fragment() {
+class MapsFragment : Fragment(), OnItemViewClickListener {
 
     private lateinit var map: GoogleMap
     private val markers: ArrayList<Marker> = arrayListOf()
@@ -71,6 +80,7 @@ class MapsFragment : Fragment() {
 
     private fun buttonListener() {
         binding.buttonSearch.setOnClickListener {
+            it.hideKeyboard()
             val searchText = binding.searchAddress.text.toString()
             // check text
             if (!isNumeric(searchText)) {
@@ -82,6 +92,7 @@ class MapsFragment : Fragment() {
                         .title(searchText)
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker))
                 )
+                showWeather(results[0].locality.toString(),results[0].latitude, results[0].longitude)
                 map.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(
@@ -158,6 +169,34 @@ class MapsFragment : Fragment() {
             .setNegativeButton("Not necessary") { dialog, _ -> dialog.dismiss() }
             .create()
             .show()
+    }
+
+    override fun onItemViewClick(weather: Weather) {
+        requireActivity().supportFragmentManager.beginTransaction().add(
+            R.id.container,
+            DetailsFragment.newInstance(Bundle().apply {
+                putParcelable(DetailsFragment.BUNDLE_EXTRA, weather)
+            })
+        ).addToBackStack("").commit()
+    }
+
+    private fun showWeather(address: String, latitude:Double, longitude:Double){
+        binding.buttonShowWeather.setOnClickListener {
+            onItemViewClick(
+                Weather(
+                    City(
+                        address,
+                        latitude,
+                        longitude
+                    )
+                )
+            )
+        }
+    }
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }

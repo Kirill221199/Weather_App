@@ -16,4 +16,5 @@
     <string name="atmospheric_pressure">ATMOSPHERIC PRESSURE:</string>
     <string name="enter_the_address">Enter the address</string>
     <string name="search">Search</string>
+    <string name="weather">weather</string>
 </resources>
