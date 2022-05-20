@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "178060140677",
+    "project_id": "weather-app-ec558",
+    "storage_bucket": "weather-app-ec558.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178060140677:android:eecdd5cd3bc57cab5b89ec",
+        "android_client_info": {
+          "package_name": "ru.kirill.weather_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178060140677-ljdm36iqao05ifufaakf89c0jkm0hjoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcvH0FQpdYK-rRfvOvRMWC_1I_h1qn1xE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178060140677-ljdm36iqao05ifufaakf89c0jkm0hjoi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
